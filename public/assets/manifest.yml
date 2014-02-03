@@ -5,5 +5,7 @@ application.js: application-5e069e08ce98bbd09565de5f60d052fb.js
 application/index.js: application-5e069e08ce98bbd09565de5f60d052fb.js
 application.css: application-cdbf7d4909c900b4115af685af205e3f.css
 application/index.css: application-cdbf7d4909c900b4115af685af205e3f.css
+bootstrap.js: bootstrap-7c775b5d23356880df589471e5569e7b.js
+bootstrap/index.js: bootstrap-7c775b5d23356880df589471e5569e7b.js
 jquery.min.map: jquery.min-388372ef65cc311f6a3df4a6ceac8d22.map
 jquery/index.min.map: jquery.min-388372ef65cc311f6a3df4a6ceac8d22.map
