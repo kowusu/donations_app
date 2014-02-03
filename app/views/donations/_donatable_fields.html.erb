@@ -1,0 +1,53 @@
+
+<div class="control-group voucher">
+<label for="donation_donatable_expiration_date" class="control-label">Expiration Date:</label>
+    <div class="controls">
+    <%= f.date_select(:expiration_date, {:selected => (@donation.donatable.expiration_date.to_date if @donation.donatable.respond_to?(:expiration_date)),:order => [:month, :day, :year], 
+                                  :start_year => 2000, :end_year => (Time.now + 20.year).year, :include_blank => true,
+                                  }, {:class => "input-small"}) %><br/>
+    </div>
+</div>
+
+<div class="control-group physical_item">
+<label for="donation_donatable_physical_item_weight" class="control-label">Weight: </label>
+    <div class="controls">
+    <%= f.text_field(:weight, :size=>40, :value => (@donation.donatable.weight if @donation.donatable.respond_to?(:weight)), :class => "input-xlarge") %><br/>
+    </div>
+</div>
+<div class="control-group physical_item">
+<label for="donation_donatable_physical_item_height" class="control-label">Height: </label>
+    <div class="controls">
+    <%= f.text_field(:height, :size=>40, :value => (@donation.donatable.height if @donation.donatable.respond_to?(:height)), :class => "input-xlarge") %><br/>
+    </div>
+</div>
+<div class="control-group physical_item">
+<label for="donation_donatable_physical_item_width" class="control-label">Width: </label>
+    <div class="controls">
+    <%= f.text_field(:width, :size=>40, :value => (@donation.donatable.width if @donation.donatable.respond_to?(:width)), :class => "input-xlarge") %><br/>
+    </div>
+</div>
+
+<div class="control-group experience">
+<label for="donation_donatable_experience_primary_contact_name" class="control-label">Primary Contact Name: </label>
+    <div class="controls">
+    <%= f.text_field(:primary_contact_name, :size=>40, :value => (@donation.donatable.primary_contact_name if @donation.donatable.respond_to?(:primary_contact_name)), :class => "input-xlarge") %><br/>
+    </div>
+</div>
+<div class="control-group experience">
+<label for="donation_donatable_experience_location" class="control-label">Location: </label>
+    <div class="controls">
+    <%= f.text_field(:location, :size=>40, :value => (@donation.donatable.location if @donation.donatable.respond_to?(:location)), :class => "input-xlarge") %><br/>
+    </div>
+</div>
+<div class="control-group experience">
+<label for="donation_donatable_experience_latitue" class="control-label">Latitude: </label>
+    <div class="controls">
+    <%= f.text_field(:latitude, :size=>40, :value => (@donation.donatable.latitude if @donation.donatable.respond_to?(:latitude)), :class => "input-xlarge") %><br/>
+    </div>
+</div>
+<div class="control-group experience">
+<label for="donation_donatable_experience_longitude" class="control-label">Longitude: </label>
+    <div class="controls">
+    <%= f.text_field(:longitude, :size=>40, :value => (@donation.donatable.longitude if @donation.donatable.respond_to?(:longitude)), :class => "input-xlarge") %><br/>
+    </div>
+</div>

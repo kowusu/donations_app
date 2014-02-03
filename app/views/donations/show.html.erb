@@ -1,0 +1,44 @@
+<div id="content" class="form-horizontal adDepotForm span10">
+<h3><span id="new_donation_header">New Donation</span></h3>
+<div id="createJob">
+    <div class="control-group">
+<label for="donation_donatable_experience_primary_contact_name" class="control-label">Primary Contact Name: </label>
+    <div class="controls">
+    <input id="donation_donatable_primary_contact_name" class="input-xlarge" type="text"
+           size="40" name="donation[donatable][primary_contact_name]" value="<%= @donation.donatable.primary_contact_name %>" disabled="disabled">
+    <br/>
+    </div>
+</div>
+<div class="control-group">
+<label for="donation_donatable_experience_location" class="control-label">Location: </label>
+    <div class="controls">
+    
+    <input id="donation_donatable_location" class="input-xlarge" type="text" size="40" name="donation[donatable][location]" value="<%= @donation.donatable.location %>" disabled="disabled">
+    </div>
+</div>
+<div class="control-group">
+<label for="donation_donatable_experience_latitue" class="control-label">Latitude: </label>
+    <div class="controls">
+    <input id="donation_donatable_latitude" class="input-xlarge" type="text" size="40" name="donation[donatable][latitude]" value="<%= @donation.donatable.latitude %>" disabled="disabled"><br/>
+    </div>
+</div>
+<div class="control-group">
+<label for="donation_donatable_experience_longitude" class="control-label">Longitude: </label>
+    <div class="controls">
+    <input id="donation_donatable_longitude" class="input-xlarge" type="text" size="40" name="donation[donatable][longitude]" value="<%= @donation.donatable.longitude %>" disabled="disabled"><br/>
+    </div>
+</div>
+<label for="donation_donatable_map" class="control-label">Map: </label>
+    <div class="controls">
+    <%= image_tag "http://maps.google.com/maps/api/staticmap?size=450x300&sensor=false&zoom=16&markers=#{@donation.donatable.latitude}%2C#{@donation.donatable.longitude}" %><br/>
+    </div>
+</div>
+    <div class="span10">
+      <div class="form-actions inverse">
+      
+      </div>
+    </div>
+    
+</div>
+</div>
+</div>

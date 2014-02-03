@@ -3,7 +3,7 @@ require 'spec_helper'
 describe DonationsController do
   
   describe "GET new" do
-    context "when creating new donation" do
+    context "when creating a new donation" do
       subject { get :new }
       its(:status) { should == 200 } # OK
       it "should render the new view" do
@@ -14,13 +14,14 @@ describe DonationsController do
   end
   
   describe "POST create" do
-    context "when title, description, donatable are filled in" do
+    context "when title, description, donatable are present" do
       subject { post :create, { :donation =>
         { :title => "Donation Title",
           :description => "What this donation is all about" ,
           :donatable_type => "Voucher",
           :donatable => { :expiration_date => 1.month.from_now }
-        }}
+        }
+        }
       }
       its(:status) { should == 302 } # redirect
       
@@ -34,7 +35,7 @@ describe DonationsController do
       end
     end
     
-    context "when title is filled in and descripton is blank" do
+    context "when title is present and descripton is blank" do
       subject { post :create, { :donation =>
         { :title => "Donation Title" }
         }
@@ -51,7 +52,7 @@ describe DonationsController do
       end
     end
     
-    context "when description is filled in and title is blank" do
+    context "when description is fpresent and title is blank" do
       subject { post :create, { :donation =>
         { :title => "Donation Title" }
         }
@@ -84,7 +85,7 @@ describe DonationsController do
   end
   
   describe "PUT update" do
-    context "when title and description are edit" do
+    context "when title and description are edited" do
       let(:donation) {
         Donation.create(:title => "First Donation", :description => "First Donation description", :donatable => Voucher.new(:expiration_date => 1.month.from_now))
       }

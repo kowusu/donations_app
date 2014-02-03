@@ -50,6 +50,7 @@ DonationsApp::Application.routes.draw do
   # just remember to delete public/index.html.
   # root :to => 'welcome#index'
   
+  root :to => "donations#index"
   resources :donations
 
   # See how all your routes lay out with "rake routes"

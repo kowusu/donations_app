@@ -1,0 +1,26 @@
+<div class="clearfix"></div>
+<div class="donationForm">
+    <div class="control-group">
+    <label for="donation_title" class="control-label">Title: </label>
+        <div class="controls">
+        <%= f.text_field(:title, :size=>40, :class => "input-xlarge") %><br/>
+        </div>
+    </div>
+    <div class="control-group">
+    <label for="donation_description" class="control-label">Description:</label>
+        <div class="controls">
+        <%= f.text_area(:description, :cols => 30, :rows => 4) %><br/>
+        </div>
+    </div>
+    <div class="control-group">
+    <label for="donation_donatable_type" class="control-label">Type:</label>
+        <div class="controls">
+        <%= f.select(:donatable_type, @donation_types,{:include_blank => true}) %><br/>
+        </div>
+    </div>
+    
+    <%= f.fields_for :donatable do |builder| %>
+        <%= render "donatable_fields", :f => builder, :object => @donation.donatable %>
+    <% end %>
+
+</div>

@@ -1,0 +1,45 @@
+<h3><span id="donations_header">Home </span></h3>
+<div id="donations_home" >
+  <table id="donations_table" class="table table-bordered" >
+    <thead>
+        <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Donation Type</th>
+                <th colspan="3">Donation</th>
+                <th> </th>
+                <th> </th>
+                <th> </th>
+        </tr>
+    </thead>
+    <tbody>
+    <% @donations.each do |donation| %>
+        <tr>
+                <td class="donation_title"><%= donation.title %></td>
+                <td class="donation_description"><%= donation.description %></td>
+                <td class="donation_type"><%= donation.donatable_type %></td>
+              <% if donation.donatable_type == "Voucher" %>
+                <td class="donation_donatable" colspan="3" ><%= donation.donatable.expiration_date if donation.donatable %></td>
+              <% elsif donation.donatable_type == "PhysicalItem" %>
+                <td class="donation_donatable"><%= donation.donatable.weight %></td>
+                <td class="donation_donatable"><%= donation.donatable.height %></td>
+                <td class="donation_donatable"><%= donation.donatable.width %></td>
+              <% elsif donation.donatable_type == "Experience" %>
+                <td class="donation_donatable"><%= donation.donatable.primary_contact_name if donation.donatable %></td>
+                <td class="donation_donatable"><%= donation.donatable.longitude if donation.donatable %></td>
+                <td class="donation_donatable"><%= donation.donatable.latitude if donation.donatable %></td>
+              <% end %>
+              
+                <td class="donation_show"><%= link_to('Show', :action => 'show', :id => donation) if donation.donatable_type == "Experience" %></td>
+                <td class="donation_edit"><%= link_to('Edit', :action => 'edit', :id => donation) %></td>
+                <td class="donation_delete"><%= link_to('Delete', {:action => :destroy, :id => donation},:confirm => 'Are you sure?', :method => :delete) %></td>
+        </tr>
+    <% end %>
+    </tbody>
+    </table><br/>
+<div class="span10"><%= will_paginate @donation, renderer: BootstrapPagination::Rails %></div>
+</div>
+                    
+<% content_for(:javascript) do %>
+  <%= javascript_include_tag :entitlement %>
+<% end %>

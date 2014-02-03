@@ -1,14 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html class="no-javascript">
 <head>
-  <title>DonationsApp</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
+  <script>
+      document.documentElement.className = document.documentElement.className.replace('no-javascript', 'javascript');
+  </script>
+  <title><%= @title || "Donation App" %></title>
+  <%= stylesheet_link_tag    "http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css", "application", :media => "all" %>
+  <%= javascript_include_tag  "jquery", "jquery_ujs", "jquery-ui", "bootstrap", "general" %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<!--[if IE 7]><body id="ps-body" class="ie7"><![endif]-->
+<!--[if IE 8]><body id="ps-body" class="ie8"><![endif]-->
+<!--[if IE 9]><body id="ps-body" class="ie9"><![endif]-->
+<!--[if !IE]>-->
+<body id="ps-body">
+<!--<![endif]-->
+  <div id="">
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <div class='brand'>Donation App</div>
+          
+        </div>
+      </div>
+    </div>
 
-<%= yield %>
-
+    <div class="container-fluid">
+      <div class="row-fluid">
+      <div class="span2">
+          <%= render 'layouts/sidebar_nav' %>
+        </div>
+        <div class="span10">
+          <% if flash %>
+            <% if flash[:notice] %>
+              <div class="alert alert-success span6" >
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <%= flash[:notice] %>
+              </div>
+              <div class="clearfix" ></div>
+            <% end %>
+            <% if flash[:error] %>
+              <div class="alert alert-error span6" >
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <%= flash[:error] %>
+              </div>
+              <div class="clearfix" ></div>
+            <% end %>
+          <% end %>
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
+</html>
 </html>

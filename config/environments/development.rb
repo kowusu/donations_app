@@ -28,9 +28,12 @@ DonationsApp::Application.configure do
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   config.active_record.auto_explain_threshold_in_seconds = 0.5
+  
+  config.assets.precompile += %w( general.js jquery.corner.js jquery-1.7.1.min.js rails.js jquery-ui-1.8.7.custom.min.js jquery.validate.min.js )
 
   # Do not compress assets
   config.assets.compress = false
+  config.serve_static_assests = false
 
   # Expands the lines which load the assets
   config.assets.debug = true

@@ -21,6 +21,8 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'jquery-validation-rails'
+gem "will_paginate-bootstrap", "0.2.5"
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -34,8 +36,10 @@ gem 'jquery-rails'
 # Deploy with Capistrano
 # gem 'capistrano'
 
+gem 'geocoder'
+
 # To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'
+gem 'ruby-debug19', :require => 'ruby-debug'
 
 group :development, :test do 
   gem "rspec"

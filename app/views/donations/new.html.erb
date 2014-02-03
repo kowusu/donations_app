@@ -1,0 +1,22 @@
+<% @page_title = 'New Donation' -%>
+<div id="content" class="form-horizontal adDepotForm span10">
+<h3><span id="new_donation_header">New Donation</span></h3>
+<div id="createJob">
+<%= form_for @donation, :url => { :action => 'create' }, :html => {:method => :post,:class => 'donataion_form'} do |f| %>
+
+    <%= render(:partial => 'form', :locals => {:f => f}) %>
+    <div class="span10">
+      <div class="form-actions inverse">
+        <%= f.submit 'Save', :class => "btn btn-primary" %>  
+        <%= link_to('Cancel', donations_path, :confirm => 'Are you sure you want to continue, the changes will be lost?', :class => "btn") %>
+      </div>
+    </div>
+    
+  
+<% end %>
+</div>
+</div>
+</div>
+<% content_for(:javascript) do %>
+  <%= javascript_include_tag :update_job %>
+<% end %>
