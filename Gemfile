@@ -38,8 +38,10 @@ gem "will_paginate-bootstrap", "0.2.5"
 
 gem 'geocoder'
 
+gem 'devise'
+
 # To use debugger
-gem 'ruby-debug19', :require => 'ruby-debug'
+#gem 'ruby-debug19', :require => 'ruby-debug'
 
 group :development, :test do 
   gem "rspec"

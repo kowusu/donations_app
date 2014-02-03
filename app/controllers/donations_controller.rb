@@ -1,6 +1,7 @@
 class DonationsController < ApplicationController
   
   before_filter :get_types, :include => [:new,:create,:edit,:update]
+  before_filter :authenticate_user!
   
   def index
     @donations = Donation.paginate :page => params[:page], :order => 'created_at DESC'

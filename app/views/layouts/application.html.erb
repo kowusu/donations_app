@@ -20,7 +20,15 @@
       <div class="navbar-inner">
         <div class="container-fluid">
           <div class='brand'>Donation App</div>
-          
+          <ul class="nav pull-right">
+		      <% if user_signed_in? -%>
+			<% @user = @user || current_user -%>
+                        <div id="user_info" class="float_right">
+                            Welcome: <%= @user.email %> | <%= link_to 'Logout', destroy_user_session_path, :method => :delete %> <br/>
+                        </div>
+                        <div class="clear"></div>
+		      <% end %>
+		    </ul>
         </div>
       </div>
     </div>
