@@ -39,7 +39,3 @@
     </table><br/>
 <div class="span10"><%= will_paginate @donation, renderer: BootstrapPagination::Rails %></div>
 </div>
-                    
-<% content_for(:javascript) do %>
-  <%= javascript_include_tag :entitlement %>
-<% end %>
