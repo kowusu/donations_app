@@ -1,0 +1,41 @@
+<div class='container' >
+  <div class='span12 form-horizontal'>
+<div class='span6'>
+<div class="text-center">
+<h3>Sign in</h3>
+</div>
+</div>
+
+<div class="clearfix"></div>
+<br />
+<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+
+  <div class="control-group">
+    <%= f.label :login, "Email*", :class => "control-label" %>
+    <div class="controls">
+      <%= f.text_field :email, :autofocus => true %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :password, "Password*", :class => "control-label" %>
+    <div class="controls">
+      <%= f.password_field :password %>
+    </div>
+  </div>
+
+  <% if devise_mapping.rememberable? -%>
+    <div class="control-group"><div class="controls"><%= f.check_box :remember_me, {}, {:id=>"remember_login"} %> <%= f.label :remember_me %></div></div>
+  <% end -%>
+  
+  <div class="row-fluid">
+          <div class="span10">
+            <div class="form-actions inverse">
+              <%= f.submit "Sign in", :class => "btn btn-primary" %>
+            </div>
+          </div>
+  </div>
+<% end %>
+<%= render "devise/shared/links" %>
+</div>
+  
