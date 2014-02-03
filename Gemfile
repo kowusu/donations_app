@@ -10,6 +10,8 @@ gem 'mysql2', :group => [:development,:test]
 gem 'rails_12factor', :group => :production
 gem 'pg', :group => :production
 
+gem 'heroku'
+
 
 # Gems used only for assets and not required
 # in production environments by default.
