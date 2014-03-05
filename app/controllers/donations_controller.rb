@@ -72,23 +72,30 @@ class DonationsController < ApplicationController
     
   end
   def load_donatable
-    donatable_type = params[:donation].delete :donatable_type if params[:donation][:donatable_type]
+    
+    donatable_type = params[:donation][:donatable_type]
     
     @donatable = if donatable_type == "Voucher"
       if params[:donation][:donatable][:id]
-        Voucher.find(params[:donation][:donatable][:id]).update_attributes(voucher_params)
+        voucher = Voucher.find(params[:donation][:donatable][:id])
+        voucher.update(voucher_params)
+        voucher
       else
         Voucher.create(voucher_params)
       end
     elsif donatable_type == "Experience"
       if params[:donation][:donatable][:id]
-        Experience.find(params[:donation][:donatable][:id]).update_attributes(experience_params) 
+        experience = Experience.find(params[:donation][:donatable][:id])
+        experience.update(experience_params)
+        experience
       else
         Experience.create(experience_params)
       end
     elsif donatable_type == "PhysicalItem"
       if params[:donation][:donatable][:id]
-        PhysicalItem.find(params[:donation][:donatable][:id]).update_attributes(physical_item_params)
+        physical_item = PhysicalItem.find(params[:donation][:donatable][:id])
+        physical_item.update(physical_item_params)
+        physical_item
       else
         PhysicalItem.create(physical_item_params)
       end

@@ -1,4 +1,4 @@
-
+<%= f.hidden_field(:id, :value => (@donation.donatable.id if @donation.donatable.respond_to?(:id))) %><br/>
 <div class="control-group voucher">
 <label for="donation_donatable_expiration_date" class="control-label">Expiration Date:</label>
     <div class="controls">
