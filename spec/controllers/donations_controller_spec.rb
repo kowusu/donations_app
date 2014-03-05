@@ -4,7 +4,10 @@ describe DonationsController do
   
   describe "GET new" do
     context "when creating a new donation" do
-      subject { get :new }
+      subject {
+        sign_in
+        get :new
+        }
       its(:status) { should == 200 } # OK
       it "should render the new view" do
         subject
@@ -15,7 +18,9 @@ describe DonationsController do
   
   describe "POST create" do
     context "when title, description, donatable are present" do
-      subject { post :create, { :donation =>
+      subject {
+        sign_in
+        post :create, { :donation =>
         { :title => "Donation Title",
           :description => "What this donation is all about" ,
           :donatable_type => "Voucher",
@@ -36,7 +41,9 @@ describe DonationsController do
     end
     
     context "when title is present and descripton is blank" do
-      subject { post :create, { :donation =>
+      subject {
+        sign_in
+        post :create, { :donation =>
         { :title => "Donation Title" }
         }
       }
@@ -53,7 +60,9 @@ describe DonationsController do
     end
     
     context "when description is fpresent and title is blank" do
-      subject { post :create, { :donation =>
+      subject {
+        sign_in
+        post :create, { :donation =>
         { :title => "Donation Title" }
         }
       }
@@ -75,7 +84,9 @@ describe DonationsController do
       let(:donation) {
         Donation.create(:title => "First Donation", :description => "First Donation description", :donatable => Voucher.new(:expiration_date => 1.month.from_now))
       }
-      subject { get :edit, :id => donation.id }
+      subject {
+        sign_in
+        get :edit, :id => donation.id }
       its(:status) { should == 200 } # OK
       it "should render the edit view" do
         subject
@@ -90,7 +101,9 @@ describe DonationsController do
         Donation.create(:title => "First Donation", :description => "First Donation description", :donatable => Voucher.new(:expiration_date => 1.month.from_now))
       }
       
-      subject { put :update, {:id => donation.id, :donation =>
+      subject {
+        sign_in
+        put :update, { :id => donation.id, :donation =>
           { :title => "Donation Title",
             :description => "What this donation is all about",
             :donatable_type => "Voucher",
@@ -123,7 +136,9 @@ describe DonationsController do
         Donation.create(:title => "First Donation", :description => "First Donation description", :donatable => Voucher.new(:expiration_date => 1.month.from_now))
       }
       
-      subject { get :show, :id=> donation.id }
+      subject {
+        sign_in
+        get :show, :id=> donation.id }
       
       it "assigns @donation" do
         subject
@@ -136,7 +151,9 @@ describe DonationsController do
       end
     end
     context "when the donation does not exist" do
-      subject { get :show, :id=> 404 }
+      subject {
+        sign_in
+        get :show, :id=> 404 }
       
       its(:status) { should == 302 }
       
@@ -156,7 +173,10 @@ describe DonationsController do
         ]
       end
       before { donations }
-      subject { get :index }
+      subject {
+        sign_in
+        get :index
+      }
       
       it "assigns @donations" do
         subject # let!
@@ -165,7 +185,9 @@ describe DonationsController do
     end
     
     context "when there are no donations" do
-      subject { get :index }
+      subject {
+        sign_in
+        get :index }
       
       it "assigns @donations" do
         subject
@@ -177,7 +199,9 @@ describe DonationsController do
   describe "DELETE destroy" do
     context "when the donation exists" do
       let(:donation) { Donation.create(:title => "First Donation", :description => "First Donation description", :donatable => Voucher.new(:expiration_date => 1.month.from_now)) }
-      subject { delete :destroy, :id=> donation.id }
+      subject {
+        sign_in
+        delete :destroy, :id=> donation.id }
       
       it "deletes the donation" do
         subject

@@ -4,7 +4,7 @@ class DonationsController < ApplicationController
   before_filter :authenticate_user!
   
   def index
-    @donations = Donation.paginate :page => params[:page], :order => 'created_at DESC'
+    @donations = Donation.order('created_at DESC').paginate :page => params[:page]
   end
 
   def new
@@ -13,8 +13,8 @@ class DonationsController < ApplicationController
   
   def create
     donatable = create_donatable
-    @donation = Donation.new params[:donation].merge(:donatable => donatable)
-    #@donation.donatable = donatable
+    @donation = Donation.new donation_params.merge(:donatable => donatable)
+    
     if @donation.save
       redirect_to donations_path
     else
@@ -30,7 +30,7 @@ class DonationsController < ApplicationController
   def update
     @donation = Donation.find(params[:id])
     @donation.donatable = load_donatable
-    @donation.update_attributes(params[:donation])
+    @donation.update_attributes(donation_params)
     if @donation.save
       redirect_to donations_path
     else
@@ -64,14 +64,11 @@ class DonationsController < ApplicationController
     #debugger
     donatable_type = params[:donation].delete :donatable_type if params[:donation][:donatable_type]
     @donatable = if donatable_type == "Voucher"
-      remove_unused_donatable_types params[:donation][:donatable], donatable_type
-      Voucher.create(params[:donation].delete :donatable)
+      Voucher.create(voucher_params)
     elsif donatable_type == "Experience"
-      remove_unused_donatable_types params[:donation][:donatable], donatable_type
-      Experience.create(params[:donation].delete :donatable)
+      Experience.create(experience_params)
     elsif donatable_type == "PhysicalItem"
-      remove_unused_donatable_types params[:donation][:donatable], donatable_type
-      PhysicalItem.create(params[:donation].delete :donatable)
+      PhysicalItem.create(physical_item_params)
     end
     
   end
@@ -79,40 +76,22 @@ class DonationsController < ApplicationController
     donatable_type = params[:donation].delete :donatable_type if params[:donation][:donatable_type]
     
     @donatable = if donatable_type == "Voucher"
-      remove_unused_donatable_types params[:donation][:donatable], donatable_type
       if params[:donation][:donatable][:id]
-        Voucher.find(params[:donation][:donatable][:id]).update_attributes(params[:donation].delete :donatable)
+        Voucher.find(params[:donation][:donatable][:id]).update_attributes(voucher_params)
       else
-        Voucher.create(params[:donation].delete(:donatable))
+        Voucher.create(voucher_params)
       end
     elsif donatable_type == "Experience"
-      remove_unused_donatable_types params[:donation][:donatable], donatable_type
       if params[:donation][:donatable][:id]
-        Experience.find(params[:donation][:donatable][:id]).update_attributes(params[:donation].delete :donatable) 
+        Experience.find(params[:donation][:donatable][:id]).update_attributes(experience_params) 
       else
-        Experience.create(params[:donation].delete :donatable)
+        Experience.create(experience_params)
       end
     elsif donatable_type == "PhysicalItem"
-      remove_unused_donatable_types params[:donation][:donatable], donatable_type
       if params[:donation][:donatable][:id]
-        PhysicalItem.find(params[:donation][:donatable][:id]).update_attributes(params[:donation].delete :donatable)
+        PhysicalItem.find(params[:donation][:donatable][:id]).update_attributes(physical_item_params)
       else
-        PhysicalItem.create(params[:donation].delete :donatable)
-      end
-    end
-  end
-  def remove_unused_donatable_types donatable_types, donatable_type
-    if donatable_type == "Voucher"
-      [:weight, :height, :width, :location, :latitude, :longitude, :primary_contact_name].each do |sym|
-        donatable_types.delete sym
-      end
-    elsif donatable_type == "Experience"
-      [:weight, :height, :width,:'expiration_date(2i)', :'expiration_date(3i)', :'expiration_date(1i)'].each do |sym|
-        donatable_types.delete sym
-      end
-    elsif donatable_type == "PhysicalItem"
-      [:location, :latitude, :longitude,:'expiration_date(2i)', :'expiration_date(3i)', :'expiration_date(1i)', :primary_contact_name].each do |sym|
-        donatable_types.delete sym
+        PhysicalItem.create(physical_item_params)
       end
     end
   end
@@ -129,5 +108,19 @@ class DonationsController < ApplicationController
     flash[:error] += "</ul>".html_safe
   end
   
+  def donation_params
+    params.require(:donation).permit(:title, :description)
+  end
   
+  def voucher_params
+    params[:donation][:donatable].permit([:expiration_date])
+  end
+  
+  def experience_params
+    params[:donation][:donatable].permit(:latitude, :location, :longitude, :primary_contact_name)
+  end
+  
+  def physical_item_params
+    params[:donation][:donatable].permit(:height, :weight, :width)
+  end
 end
