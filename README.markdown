@@ -1,4 +1,4 @@
-== Installation
+## Installation
 This appilcation was developed using Ruby 2.1 and Rails 4.
 
 A live copy is deploy on [heroku](http://pacific-cove-5545.herokuapp.com/).
