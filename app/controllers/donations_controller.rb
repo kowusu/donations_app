@@ -61,7 +61,6 @@ class DonationsController < ApplicationController
     @donation_types = ["Voucher","Experience","PhysicalItem"]
   end
   def create_donatable
-    #debugger
     donatable_type = params[:donation].delete :donatable_type if params[:donation][:donatable_type]
     @donatable = if donatable_type == "Voucher"
       Voucher.create(voucher_params)
@@ -97,7 +96,6 @@ class DonationsController < ApplicationController
   end
   
   def generate_errors donation
-    #debugger
     flash[:error] = "Unable to successfully save the donation<br/>".html_safe
     flash[:error] += "<h4> #{view_context.pluralize(donation.errors.count,'Error')} prohibited this job from being saved </h4>".html_safe
   
