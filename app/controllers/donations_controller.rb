@@ -61,45 +61,10 @@ class DonationsController < ApplicationController
     @donation_types = ["Voucher","Experience","PhysicalItem"]
   end
   def create_donatable
-    donatable_type = params[:donation].delete :donatable_type if params[:donation][:donatable_type]
-    @donatable = if donatable_type == "Voucher"
-      Voucher.create(voucher_params)
-    elsif donatable_type == "Experience"
-      Experience.create(experience_params)
-    elsif donatable_type == "PhysicalItem"
-      PhysicalItem.create(physical_item_params)
-    end
-    
+    DonatableService.new(params).create
   end
   def load_donatable
-    
-    donatable_type = params[:donation][:donatable_type]
-    
-    @donatable = if donatable_type == "Voucher"
-      if params[:donation][:donatable][:id]
-        voucher = Voucher.find(params[:donation][:donatable][:id])
-        voucher.update(voucher_params)
-        voucher
-      else
-        Voucher.create(voucher_params)
-      end
-    elsif donatable_type == "Experience"
-      if params[:donation][:donatable][:id]
-        experience = Experience.find(params[:donation][:donatable][:id])
-        experience.update(experience_params)
-        experience
-      else
-        Experience.create(experience_params)
-      end
-    elsif donatable_type == "PhysicalItem"
-      if params[:donation][:donatable][:id]
-        physical_item = PhysicalItem.find(params[:donation][:donatable][:id])
-        physical_item.update(physical_item_params)
-        physical_item
-      else
-        PhysicalItem.create(physical_item_params)
-      end
-    end
+    DonatableService.new(params).load
   end
   
   def generate_errors donation
@@ -117,15 +82,4 @@ class DonationsController < ApplicationController
     params.require(:donation).permit(:title, :description)
   end
   
-  def voucher_params
-    params[:donation][:donatable].permit([:expiration_date])
-  end
-  
-  def experience_params
-    params[:donation][:donatable].permit(:latitude, :location, :longitude, :primary_contact_name)
-  end
-  
-  def physical_item_params
-    params[:donation][:donatable].permit(:height, :weight, :width)
-  end
 end
